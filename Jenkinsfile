@@ -1,50 +1,55 @@
-pipeline{
+pipeline {
     agent any
 
-    environment{
+    environment {
         IMAGE_NAME = "apoorvar12/board-game"
         TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${TAG}"
     }
 
-    stages{
-        stage('Checkout'){
-            steps{
+    stages {
 
+        stage('Checkout') {
+            steps {
                 git url: 'https://github.com/apoorvaramesh11/BoardGame.git', branch: 'main'
+            }
+        }
 
-            }
-        }
-        stage('building application'){
-            steps{
-                sh 'mvn clean package'
-            }
-        }
-        stage('Building docker image'){
-            steps{
-            sh 'docker build -t ${FULL_IMAGE} .'
-            }
-        }
-        stage('Push to dockerhub'){
-            steps{
-                
-                echo 'Pushing the image to DockerHub'
+        stage('Docker Login') {
+            steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'DOCKERHUB_ID',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-
                     sh '''
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    echo "Login Successful"
-                    docker push ${FULL_IMAGE}
+                    echo "Docker Login Successful"
                     '''
                 }
             }
         }
-        stage('Creating container'){
-            steps{
+
+        stage('Building application') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Building docker image') {
+            steps {
+                sh 'docker build -t ${FULL_IMAGE} .'
+            }
+        }
+
+        stage('Push to dockerhub') {
+            steps {
+                sh 'docker push ${FULL_IMAGE}'
+            }
+        }
+
+        stage('Creating container') {
+            steps {
                 sh 'docker run -d -p 8081:8080 ${FULL_IMAGE}'
             }
         }

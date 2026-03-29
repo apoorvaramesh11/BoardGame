@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Building docker image'){
             steps{
-            sh 'docker build -t ${FULL_IMAG} .'
+            sh 'docker build -t ${FULL_IMAGE} .'
             }
         }
         stage('Push to dockerhub'){

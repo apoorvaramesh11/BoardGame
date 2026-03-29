@@ -1,21 +1,14 @@
-# Stage 1: Build
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-17
 
 WORKDIR /app
 
-# Copy only required files (better caching)
 COPY pom.xml .
 COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-# Stage 2: Run
-FROM eclipse-temurin:17-jdk
-
-WORKDIR /app
-
-# Copy jar from build stage
-COPY --from=build /app/target/*.jar app.jar
+# Rename jar for predictable execution
+RUN cp target/*.jar app.jar
 
 EXPOSE 8081
 

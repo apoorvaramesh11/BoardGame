@@ -2,9 +2,9 @@ pipeline{
     agent any
 
     environment{
-        IMAGE_NAME = 'apoorvar12/board-game'
-        TAG = '${BUILD_NUMBER}'
-        FULL_IMAGE = '${IMAGE_NAME}:${TAG}'
+        IMAGE_NAME = "apoorvar12/board-game"
+        TAG = "${BUILD_NUMBER}"
+        FULL_IMAGE = "${IMAGE_NAME}:${TAG}"
     }
 
     stages{
@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Building docker image'){
             steps{
-            sh 'docker build -t '${FULL_IMAGE}' .'
+            sh 'docker build -t ${FULL_IMAGE} .'
             }
         }
         stage('Push to dockerhub'){

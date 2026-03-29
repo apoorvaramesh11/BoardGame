@@ -50,7 +50,7 @@ pipeline {
 
         stage('Creating container') {
             steps {
-                sh 'docker run -d -p 8081:8080 ${FULL_IMAGE}'
+                sh 'docker run -d -p 5000:5001 ${FULL_IMAGE}'
             }
         }
     }

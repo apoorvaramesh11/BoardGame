@@ -30,7 +30,7 @@ pipeline{
                 
                 echo 'Pushing the image to DockerHub'
                 withCredentials([usernamePassword(
-                    credentialsId: 'DOCKER_ID',
+                    credentialsId: 'DOCKERHUB_ID',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {

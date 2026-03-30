@@ -51,6 +51,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
   	    steps {
        		 sh """
+		 kubectl get nodes
         	 sed -i 's|image:.*|image: ${FULL_IMAGE}|' manifests/deployment-service.yaml
         	 kubectl apply -f manifests/deployment-service.yaml
        		 """

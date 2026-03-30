@@ -58,7 +58,6 @@ pipeline {
         	 echo "After update:"
         	 cat manifests/deployment-service.yaml
 
-        	 kubectl apply -f manifests/deployment-service.yaml
         	 """
     		}
 		}

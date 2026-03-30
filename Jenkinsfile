@@ -68,6 +68,7 @@ pipeline {
                     git push https://${GIT_USER}:${GIT_PASS}@github.com/apoorvaramesh11/BoardGame.git HEAD:main
 
         	       """
+				   }
     		}
 		}
     }

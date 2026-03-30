@@ -48,9 +48,12 @@ pipeline {
             }
         }
 
-        stage('Creating container') {
+        stage('Deploy to Kubernetes') {
             steps {
-                sh 'docker run -d -p 8080:8081 ${FULL_IMAGE}'
+                sh """
+                sed -i 's|image:.*|image: ${FULL_IMAGE}|'manifests/ deployment-service.yaml
+                kubectl apply -f manifests/deployment-service.yaml
+                """
             }
         }
     }

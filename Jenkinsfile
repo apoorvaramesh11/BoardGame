@@ -60,7 +60,7 @@ pipeline {
                     git config user.email "apoorvaramesh11@gmail.com"
                     git config user.name "apoorvaramesh11"
 
-        		    sed -i 's|image:.*|image: ${FULL_IMAGE}|' manifests/deployment-service.yaml
+        		    sed -i "s|image:.*|image: ${FULL_IMAGE}|" manifests/deployment-service.yaml
 
         	        git add manifests/deployment-service.yaml
                     git commit -m "Update image ${FULL_IMAGE}" || echo "No changes"

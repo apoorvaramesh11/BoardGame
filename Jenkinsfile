@@ -49,12 +49,12 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps {
-                sh """
-                sed -i 's|image:.*|image: ${FULL_IMAGE}|'manifests/deployment-service.yaml
-                kubectl apply -f manifests/deployment-service.yaml
-                """
-            }
-        }
+  	    steps {
+       		 sh """
+        	 sed -i 's|image:.*|image: ${FULL_IMAGE}|' manifests/deployment-service.yaml
+        	 kubectl apply -f manifests/deployment-service.yaml
+       		 """
+    	}
+	}	
     }
 }

@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven'
+    }
+
     environment {
         IMAGE_NAME = "apoorvar12/board-game"
         TAG = "${BUILD_NUMBER}"

@@ -19,6 +19,13 @@ pipeline {
             }
         }
 
+        stage('Check Java') {
+    steps {
+        sh 'java -version'
+        sh 'mvn -version'
+            }
+        }
+
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(
